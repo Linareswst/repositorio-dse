@@ -133,8 +133,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308231840343_Initial.cs" />
+    <Compile Include="Migrations\202308231840343_Initial.designer.cs">
+      <DependentUpon>202308231840343_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308231905433_Clasificacion.cs" />
+    <Compile Include="Migrations\202308231905433_Clasificacion.designer.cs">
+      <DependentUpon>202308231905433_Clasificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308231938206_DataAnnotations.cs" />
+    <Compile Include="Migrations\202308231938206_DataAnnotations.designer.cs">
+      <DependentUpon>202308231938206_DataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308231947569_DataTypeAnnotations.cs" />
+    <Compile Include="Migrations\202308231947569_DataTypeAnnotations.designer.cs">
+      <DependentUpon>202308231947569_DataTypeAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Pelicula.cs" />
-    <Compile Include="Models\Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +241,20 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202308231840343_Initial.resx">
+      <DependentUpon>202308231840343_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308231905433_Clasificacion.resx">
+      <DependentUpon>202308231905433_Clasificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308231938206_DataAnnotations.resx">
+      <DependentUpon>202308231938206_DataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308231947569_DataTypeAnnotations.resx">
+      <DependentUpon>202308231947569_DataTypeAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

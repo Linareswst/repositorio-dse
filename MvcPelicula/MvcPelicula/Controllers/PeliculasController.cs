@@ -71,7 +71,7 @@ namespace MvcPelicula.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,FechaLanzamiento,Genero,Precio")] Pelicula pelicula)
+        public ActionResult Create([Bind(Include = "ID,Title,FechaLanzamiento,Genero,Precio,Clasificacion")] Pelicula pelicula)
         {
             if (ModelState.IsValid)
             {

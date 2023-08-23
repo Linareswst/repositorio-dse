@@ -88,3 +88,8 @@ C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\bin\EntityFramework.dll
 C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\bin\EntityFramework.SqlServer.dll
 C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\bin\EntityFramework.xml
 C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\bin\EntityFramework.SqlServer.xml
+C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\obj\Debug\MvcPelicula.Migrations.Initial.resources
+C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\obj\Debug\MvcPelicula.csproj.GenerateResource.cache
+C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\obj\Debug\MvcPelicula.Migrations.Clasificacion.resources
+C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\obj\Debug\MvcPelicula.Migrations.DataAnnotations.resources
+C:\Users\linar\source\repos\MvcPelicula\MvcPelicula\obj\Debug\MvcPelicula.Migrations.DataTypeAnnotations.resources

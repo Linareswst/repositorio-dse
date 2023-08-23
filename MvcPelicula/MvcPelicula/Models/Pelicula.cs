@@ -10,13 +10,25 @@ namespace MvcPelicula.Models
     public class Pelicula
     {
         public int ID { get; set; }
+
+        [StringLength(60, MinimumLength = 3)]
         public string Title { get; set; }
+
         [Display(Name = "Fecha de Lanzamiento")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaLanzamiento { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
+        [Required]
+        [StringLength(30)]
         public string Genero { get; set; }
+
+        [DataType(DataType.Currency)]
         public decimal Precio { get; set; }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
+        [StringLength(5)]
+        public string Clasificacion { get; set; }
     }
 
     public class PeliculaDBContext : DbContext
