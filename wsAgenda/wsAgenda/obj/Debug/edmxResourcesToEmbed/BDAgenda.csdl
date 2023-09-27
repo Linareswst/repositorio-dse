@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Contacto">
+    <Key>
+      <PropertyRef Name="Id_Contacto" />
+    </Key>
+    <Property Name="Id_Contacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Usuario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Login" Relationship="Self.FK__Contacto__Usuari__398D8EEE" FromRole="Contacto" ToRole="Login" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Usuario" />
+    </Key>
+    <Property Name="Usuario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contrasenia" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Contactoes" Relationship="Self.FK__Contacto__Usuari__398D8EEE" FromRole="Login" ToRole="Contacto" />
+  </EntityType>
+  <Association Name="FK__Contacto__Usuari__398D8EEE">
+    <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+    <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Usuario" />
+      </Principal>
+      <Dependent Role="Contacto">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AgendaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Contactoes" EntityType="Self.Contacto" />
+    <EntitySet Name="Logins" EntityType="Self.Login" />
+    <AssociationSet Name="FK__Contacto__Usuari__398D8EEE" Association="Self.FK__Contacto__Usuari__398D8EEE">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="Contacto" EntitySet="Contactoes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
