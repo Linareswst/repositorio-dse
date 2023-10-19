@@ -1,7 +1,10 @@
 package sv.edu.udb.form;
 
-import javax.swing.*;
+import sv.edu.udb.datos.PersonaDatos;
+import sv.edu.udb.datos.OcupacionesDatos;
+import sv.edu.udb.beans.PersonaBeans;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +29,15 @@ public class Persona extends JFrame{
     private JLabel lblTelefono;
     private JLabel lblSexo;
     private JTable tblDatos;
+    private JLabel lblOcupacion;
+    private JComboBox cmbOcupacion;
+    private JLabel lblFecha;
+    private JTextField txtFechaNacimiento;
+    private JButton btnEliminar;
     DefaultTableModel modelo = null;
+    PersonaBeans personaBeans = null;
+    PersonaDatos personaDatos = new PersonaDatos();
+    OcupacionesDatos ocupacionesDatos = new OcupacionesDatos();
 
     public Persona(String title){
         super(title);
@@ -34,7 +45,7 @@ public class Persona extends JFrame{
         this.setContentPane(pnlPersona);
         this.setMinimumSize(new Dimension(600,500));
         this.setLocationRelativeTo(getParent());
-
+        /*
         //Arreglo de objeto, para inicializar con vacion la tabla
         Object [][] data = null;
         //Arreglo de String para crear los nombres de las columnas
@@ -48,6 +59,11 @@ public class Persona extends JFrame{
 
         //Cargar datos desde CSV al iniciar el programa
         cargarDatosCSV("/sv/edu/udb/util/datos.csv");
+         */
+
+        modelo = personaDatos.selectPersona();
+        tblDatos.setModel(modelo);
+        cmbOcupacion.setModel(ocupacionesDatos.selectOcupaciones());
 
         btnObtenerDatos.addActionListener(new ActionListener() {
             @Override
@@ -68,16 +84,47 @@ public class Persona extends JFrame{
                 tblObtnerDato(e);
             }
         });
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnEliminarDatos();
+            }
+        });
     }
 
     private void btnObtenerDatos(){
-        String id = txtId.getText();
-        String nombres = txtNombre.getText();
-        String edad = txtEdad.getText();
-        String telefono = txtTelefono.getText();
-        String sexo = cmbSexo.getSelectedItem().toString();
+        int id;
+        String nombres;
+        int edad;
+        String telefono;
+        String sexo;
+        int idOcupacion;
+        String fechaNacimiento;
 
-        JOptionPane.showMessageDialog(null,"Datos Obtenidos: \n ID: " +id+
+        if (txtId.getText().isEmpty()){
+            id = 0;
+        } else {
+            id = Integer.parseInt(txtId.getText());
+        }
+        nombres = txtNombre.getText();
+        edad = Integer.parseInt(txtEdad.getText());
+        telefono = txtTelefono.getText();
+        sexo = cmbSexo.getSelectedItem().toString();
+        idOcupacion =
+                ocupacionesDatos.getIdOcupacion(cmbOcupacion.getSelectedItem().toString());
+        fechaNacimiento = txtFechaNacimiento.getText();
+        personaBeans = new
+                PersonaBeans(id,nombres,edad,telefono,sexo,idOcupacion,fechaNacimiento);
+
+        if(btnObtenerDatos.getText().equals("Guardar")){
+            personaDatos.insert(personaBeans);
+        } else if (btnObtenerDatos.getText().equals("Editar")) {
+            personaDatos.update(personaBeans);
+        }
+        modelo=personaDatos.selectPersona();
+        tblDatos.setModel(modelo);
+
+        /* JOptionPane.showMessageDialog(null,"Datos Obtenidos: \n ID: " +id+
                 "\n nombres: "+ nombres+"\n Edad: "+edad+"\n Telefono: "+telefono+
                 "\n Sexo: "+ sexo);
 
@@ -91,7 +138,8 @@ public class Persona extends JFrame{
         modelo.addRow(newRow);
 
         // Escribir los datos en el archivo CSV
-        escribirDatosenCSV("/sv/edu/udb/util/datos.csv", id, nombres, edad, telefono, sexo);
+        escribirDatosenCSV("/sv/edu/udb/util/datos.csv", id, nombres, edad, telefono, sexo); */
+
     }
 
     private void btnLimpiar(){
@@ -100,6 +148,16 @@ public class Persona extends JFrame{
         txtEdad.setText("");
         txtTelefono.setText("");
         cmbSexo.setSelectedIndex(0);
+        cmbOcupacion.setSelectedIndex(0);
+        txtFechaNacimiento.setText("");
+        btnObtenerDatos.setText("Guardar");
+    }
+
+    public void btnEliminarDatos(){
+        personaDatos.delete(Integer.parseInt(txtId.getText()));
+        btnLimpiar();
+        modelo=personaDatos.selectPersona();
+        tblDatos.setModel(modelo);
     }
 
     private void tblObtnerDato(MouseEvent e){
@@ -112,10 +170,13 @@ public class Persona extends JFrame{
             txtEdad.setText(modelo.getValueAt(fila,2).toString());
             txtTelefono.setText(modelo.getValueAt(fila,3).toString());
             cmbSexo.setSelectedItem(modelo.getValueAt(fila,4).toString());
+            cmbOcupacion.setSelectedItem(modelo.getValueAt(fila,5).toString());
+            txtFechaNacimiento.setText(modelo.getValueAt(fila,6).toString());
+            btnObtenerDatos.setText("Editar");
         }
     }
 
-    private void cargarDatosCSV(String archivoCSV){
+  /*  private void cargarDatosCSV(String archivoCSV){
         try{
             InputStream inputStream = getClass().getResourceAsStream(archivoCSV);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -174,11 +235,10 @@ public class Persona extends JFrame{
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al escribir en el archivo CSV", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    } */
 
     public static void main(String[] args) {
         JFrame frame = new Persona("Ingreso de Datos");
         frame.setVisible(true);
     }
-
 }
